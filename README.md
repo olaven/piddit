@@ -1,10 +1,7 @@
-Piddit lets you see images posted on a given subreddit. 
-Nothing more, nothing less. 
+# Piddit - Images From Reddit
 
-It will be a Progressive Web App, working both on mobile and desktop. 
-Built with an "offline/mobile first" mentality.
+Progressive Web App built with "Offline first" in mind. 
 
-Todo: 
-- [ ] Get images from A specified subreddit 
-- [ ] Display images 
-- [ ] Cache the images in a local database, using service workers 
+Display images from your favorite subreddit. 
+
+Nothing more, nothing else. 
