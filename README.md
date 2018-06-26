@@ -1,3 +1,6 @@
+
+!Work in progress 
+
 # Piddit - Images From Reddit
 
 Progressive Web App built with "Offline first" in mind. 
