@@ -21,7 +21,6 @@ class ImageView extends React.Component<IImageViewProps> {
     private renderImages() {
         return this.props.images.map(image => {
             return <div>
-                <h1>Bilde</h1>
                 <ImageBlock source={image[0]} alt={image[1]} key={image[0]} />
             </div>;
         })

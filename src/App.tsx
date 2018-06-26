@@ -3,7 +3,7 @@ import "./App.css";
 
 // Components 
 import ImageView from './Components/ImageView/ImageView'; 
-import Sidebar from './Components/Sidebar/Sidebar'; 
+//import Sidebar from './Components/Sidebar/Sidebar'; 
 
 interface IAppState {
   options: Array<{
@@ -43,8 +43,8 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public render() {
-    return <div>
-        <Sidebar header="Options" options={this.state.options} />
+    return <div className="App">
+        {/*<Sidebar header="Options" options={this.state.options} />*/}
         <ImageView images={this.state.images} />
       </div>;
   }

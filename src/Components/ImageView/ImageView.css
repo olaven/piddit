@@ -2,6 +2,11 @@
     display: grid;
 }
 
+.ImageBlock {
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+}
 /* Extra small devices (phones, 600px and down) */
 
 @media only screen and (max-width: 600px) {
@@ -10,19 +15,14 @@
     }
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-
-@media only screen and (min-width: 600px) {
-    .ImageView {
-        border: solid red; 
-        grid-template-columns: repeat(2, 1fr)
-    }
-}
 
 /* Medium devices (landscape tablets, 768px and up) */
 
 @media only screen and (min-width: 900px) {
     .ImageView {
         grid-template-columns: repeat(3, 1fr)
+    }
+    .ImageBlock {
+        height: 33.33vh; 
     }
 }
