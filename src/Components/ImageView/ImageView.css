@@ -4,8 +4,7 @@
 
 .ImageBlock {
     width: 100%; 
-    margin: 0; 
-    padding: 0; 
+    display: block; 
 }
 /* Extra small devices (phones, 600px and down) */
 

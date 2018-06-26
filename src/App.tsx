@@ -35,7 +35,7 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public componentDidMount() {
-    this.getImages("infrastructureporn", results => {
+    this.getImages("bridges", results => {
       this.setState({
         images : results
       })
