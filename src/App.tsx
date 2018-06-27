@@ -3,6 +3,7 @@ import "./App.css";
 
 // Components 
 import ImageView from './Components/ImageView/ImageView'; 
+import ErrorView from './Components/ErrorView/ErrorView'; 
 //import Sidebar from './Components/Sidebar/Sidebar'; 
 
 interface IAppState {
@@ -10,7 +11,8 @@ interface IAppState {
     text: string,
     action: () => void
   }>; 
-  images : [string, string][]
+  images : [string, string][], 
+  errorPageVisible : boolean
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -30,22 +32,21 @@ class App extends React.Component<{}, IAppState> {
           text: "option 2"
         }
       ], 
-      images : []
-    }); 
-  }
+      images : [
 
-  public componentDidMount() {
-    this.getImages("bridges", results => {
-      this.setState({
-        images : results
-      })
+      ], 
+      errorPageVisible : true 
     }); 
   }
 
   public render() {
+
+    let mainView: JSX.Element = this.state.errorPageVisible ? <ErrorView message="Subreddit does not exist"/>: <ImageView images={this.state.images} />;
+
     return <div className="App">
-        {/*<Sidebar header="Options" options={this.state.options} />*/}
-        <ImageView images={this.state.images} />
+        {/*<Sidebar header="Options" options={this.state.options} /> */}
+        <input type="text" onChange={this.inputChanged.bind(this)}/>
+        {mainView}
       </div>;
   }
 
@@ -57,12 +58,13 @@ class App extends React.Component<{}, IAppState> {
     
     let sources : [string, string][] = []; 
 
-    fetch("https://www.reddit.com/r/" + subreddit + "/.json")
-      .then(response => response.json().then(listing => {
-        sources = this.getSources(listing.data.children); 
-        callback(sources); 
-      }))
-      .catch(err => console.error(err));
+    return fetch("https://www.reddit.com/r/" + subreddit + "/.json?count=205").then(
+      response =>
+        response.json().then(listing => {
+          sources = this.getSources(listing.data.children);
+          callback(sources);
+        })
+    );
   }
 
   /**
@@ -79,6 +81,19 @@ class App extends React.Component<{}, IAppState> {
       }
     }
     return sources; 
+  }
+
+  private inputChanged(event: React.ChangeEvent<HTMLInputElement>) {
+    this.getImages(event.target.value, results => {
+      this.setState({
+        images: results, 
+        errorPageVisible : false 
+      })
+    }).catch(()=> {
+      this.setState({
+        errorPageVisible : true
+      })
+    }); 
   }
 }
 

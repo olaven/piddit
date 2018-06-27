@@ -1,0 +1,16 @@
+.ErrorView {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    background-color: palevioletred;
+    text-align: center;
+}
+
+.ErrorView img {
+    margin-top: 30vh; 
+    width: 20vw;
+}
+
+.ErrorView p {
+    width: 100vw;
+}

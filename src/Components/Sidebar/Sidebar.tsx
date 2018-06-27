@@ -21,6 +21,7 @@ class Sidebar extends React.Component<ISidebarProps> {
             <h2>
                 {this.props.header}
             </h2>
+            X
             <ul>
                 {this.renderOptions()}
             </ul>
