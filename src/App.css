@@ -1,3 +1,22 @@
 .App {
-    background-color: rgb(233, 233, 233); 
+    background-color: rgb(233, 233, 233);
+}
+
+.faSearch {
+    position: fixed;
+    font-size: 2em;
+    right: 5vw;
+    top: 10vw;
+    padding: 2vw;
+    border: solid 1px; 
+    border-radius: 15%; 
+}
+
+.faSearch-active {
+    background-color: darkgrey; 
+    color: whitesmoke; 
+}
+
+.faSearch-inactive {
+    background-color: whitesmoke;
 }

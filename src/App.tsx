@@ -4,6 +4,9 @@ import "./App.css";
 // Components 
 import ImageView from './Components/ImageView/ImageView'; 
 import ErrorView from './Components/ErrorView/ErrorView'; 
+import Searchbar from './Components/Searchbar/Searchbar'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 //import Sidebar from './Components/Sidebar/Sidebar'; 
 
 interface IAppState {
@@ -12,7 +15,9 @@ interface IAppState {
     action: () => void
   }>; 
   images : [string, string][], 
-  errorPageVisible : boolean
+  errorPageVisible : boolean, 
+  searchVisible : boolean; 
+  online : boolean; 
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -35,17 +40,37 @@ class App extends React.Component<{}, IAppState> {
       images : [
 
       ], 
-      errorPageVisible : true 
+      errorPageVisible : true,
+      searchVisible : false, 
+      online : navigator.onLine
     }); 
+  }
+
+  public componentDidMount() {
+    window.addEventListener("online", this.handleNetworkChange)
+    window.addEventListener("offline", this.handleNetworkChange)
   }
 
   public render() {
 
-    let mainView: JSX.Element = this.state.errorPageVisible ? <ErrorView message="Subreddit does not exist"/>: <ImageView images={this.state.images} />;
+    let mainView: JSX.Element = <div>
+      {this.state.errorPageVisible ? 
+        <ErrorView message="Enter valid subreddit" />: 
+        <ImageView images={this.state.images} />};
+    </div>
 
     return <div className="App">
         {/*<Sidebar header="Options" options={this.state.options} /> */}
-        <input type="text" onChange={this.inputChanged.bind(this)}/>
+        <div onClick={this.toggleSearch.bind(this)}>
+          <FontAwesomeIcon icon={faSearch} 
+            className={"faSearch " 
+                        + (this.state.searchVisible ? "faSearch-active" : "faSearch-inactive")} 
+          />
+        </div>
+        <Searchbar 
+          visible={this.state.searchVisible} 
+          actionOnInput={this.inputChanged.bind(this)}
+          placeholder="enter subreddit"/>
         {mainView}
       </div>;
   }
@@ -93,6 +118,18 @@ class App extends React.Component<{}, IAppState> {
       this.setState({
         errorPageVisible : true
       })
+    }); 
+  }
+
+  private toggleSearch() {
+    this.setState({
+      searchVisible : !this.state.searchVisible
+    })
+  }
+
+  private handleNetworkChange() {
+    this.setState({
+      online : navigator.onLine
     }); 
   }
 }

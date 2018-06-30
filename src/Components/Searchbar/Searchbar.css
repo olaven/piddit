@@ -1,0 +1,19 @@
+.Searchbar {
+    position: fixed;
+    width: 100vw;
+    font-size: 1.5em;
+    border: solid black 1px;
+
+    animation-name: testAnim;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+
+.Searchbar-visible {
+    top: 0; 
+}
+
+.Searchbar-hidden {
+    top: -1.5em; 
+}
