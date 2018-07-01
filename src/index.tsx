@@ -4,9 +4,13 @@ import App from './App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
-import {add} from './Libraries/DBInstance/DBInstance.js'
+import {createStore, add, remove} from './Libraries/DBInstance/DBInstance.js'
 
-add("teststore0", {name : "flour", price : 2}); 
+createStore("database03", "store06");
+add("database03", "store06", {id : 1, name : "bread", value : 4}, "id") 
+add("database03", "store06", { id: 2, name: "loaf", value: 3 }, "id")
+remove(2, "store06", "database03");
+
 
 ReactDOM.render(
   <App />,
