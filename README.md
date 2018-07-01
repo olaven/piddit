@@ -7,4 +7,4 @@ Progressive Web App built with "Offline first" in mind.
 
 Display images from your favorite subreddit. 
 
-Nothing more, nothing else. 
+Nothing more, nothing less. 
