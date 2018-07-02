@@ -4,10 +4,17 @@ import "./App.css";
 // Components 
 import ImageView from './Components/ImageView/ImageView'; 
 import ErrorView from './Components/ErrorView/ErrorView'; 
-import Searchbar from './Components/Searchbar/Searchbar'; 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+// import Searchbar from './Components/Searchbar/Searchbar'; 
 //import Sidebar from './Components/Sidebar/Sidebar'; 
+
+// Material UI components
+import AppBar from '@material-ui/core/AppBar/AppBar'; 
+import Drawer from '@material-ui/core/Drawer/Drawer'; 
+import Input from "@material-ui/core/Input/Input"; 
+import IconButton from "@material-ui/core/IconButton/IconButton"; 
+import MenuIcon from "@material-ui/icons/Menu";  
+
+
 
 interface IAppState {
   options: Array<{
@@ -16,7 +23,7 @@ interface IAppState {
   }>; 
   images : [string, string][], 
   errorPageVisible : boolean, 
-  searchVisible : boolean; 
+  drawerVisible : boolean; 
   online : boolean; 
 }
 
@@ -41,7 +48,7 @@ class App extends React.Component<{}, IAppState> {
 
       ], 
       errorPageVisible : true,
-      searchVisible : false, 
+      drawerVisible : false, 
       online : navigator.onLine
     }); 
   }
@@ -52,7 +59,6 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public render() {
-
     let mainView: JSX.Element = <div>
       {this.state.errorPageVisible ? 
         <ErrorView message="Enter valid subreddit" />: 
@@ -61,18 +67,19 @@ class App extends React.Component<{}, IAppState> {
 
     return <div className="App">
         {/*<Sidebar header="Options" options={this.state.options} /> */}
-        <div onClick={this.toggleSearch.bind(this)}>
-          <FontAwesomeIcon icon={faSearch} 
-            className={"faSearch " 
-                        + (this.state.searchVisible ? "faSearch-active" : "faSearch-inactive")} 
-          />
-        </div>
-        <Searchbar 
-          visible={this.state.searchVisible} 
-          actionOnInput={this.inputChanged.bind(this)}
-          placeholder="enter subreddit"/>
+        <AppBar>
+          <IconButton onClick={this.toggleDrawer.bind(this)}>
+            <MenuIcon/>
+          </IconButton>
+        </AppBar>
+        <Drawer open={this.state.drawerVisible}>
+          <IconButton onClick={this.toggleDrawer.bind(this)}>
+            <MenuIcon />
+          </IconButton>
+          <Input onChange={this.inputChanged.bind(this)} placeholder="enter subreddit"/>
+        </Drawer>
         {mainView}
-      </div>;
+      </div>
   }
 
   /**
@@ -121,9 +128,9 @@ class App extends React.Component<{}, IAppState> {
     }); 
   }
 
-  private toggleSearch() {
+  private toggleDrawer() {
     this.setState({
-      searchVisible : !this.state.searchVisible
+      drawerVisible : !this.state.drawerVisible
     })
   }
 

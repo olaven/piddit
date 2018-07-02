@@ -3,9 +3,10 @@
 }
 
 .ImageBlock {
-    width: 100%; 
-    display: block; 
+    width: 100%;
+    display: block;
 }
+
 /* Extra small devices (phones, 600px and down) */
 
 @media only screen and (max-width: 600px) {
@@ -14,7 +15,6 @@
     }
 }
 
-
 /* Medium devices (landscape tablets, 768px and up) */
 
 @media only screen and (min-width: 900px) {
@@ -22,6 +22,12 @@
         grid-template-columns: repeat(3, 1fr)
     }
     .ImageBlock {
-        height: 33.33vh; 
+        height: 33.33vh;
     }
+}
+
+.AddIcon {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
 }
