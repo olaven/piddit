@@ -12,7 +12,8 @@ Nothing more, nothing less.
 
 ## TODO
 
-- [ ] Material design menu
+- [X] Material design menu
+- [ ] Saving subreddit-shortcuts
 - [ ] More user friendly "empty pages" 
 - [ ] Sync images from saved subreddits to database 
 - [ ] Get more than one page from Reddit  
