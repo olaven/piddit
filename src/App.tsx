@@ -4,24 +4,20 @@ import "./App.css";
 // Components 
 import ImageView from './Components/ImageView/ImageView'; 
 import ErrorView from './Components/ErrorView/ErrorView'; 
-// import Searchbar from './Components/Searchbar/Searchbar'; 
-//import Sidebar from './Components/Sidebar/Sidebar'; 
-
+import Sidebar from './Components/Sidebar/Sidebar'; 
+import Topbar from './Components/Topbar/Topbar'; 
+//Interfaces 
+import Image from './Interfaces/Image'; 
+import SavedSubreddit from './Interfaces/SavedSubreddit'
 // Material UI components
-import AppBar from '@material-ui/core/AppBar/AppBar'; 
-import Drawer from '@material-ui/core/Drawer/Drawer'; 
-import Input from "@material-ui/core/Input/Input"; 
-import IconButton from "@material-ui/core/IconButton/IconButton"; 
-import MenuIcon from "@material-ui/icons/Menu";  
+ 
+
 
 
 
 interface IAppState {
-  options: Array<{
-    text: string,
-    action: () => void
-  }>; 
-  images : [string, string][], 
+  savedSubreddits: SavedSubreddit[]; 
+  images : Image[], 
   errorPageVisible : boolean, 
   drawerVisible : boolean; 
   online : boolean; 
@@ -34,15 +30,15 @@ class App extends React.Component<{}, IAppState> {
 
   public componentWillMount() {
     this.setState({
-      options : [
+      savedSubreddits : [
         {
-          action: () => {alert("option 1 was clicked")}, 
-          text : "option 1"
+          name : "bridges", 
+          icon : "someIconSource1"
         }, 
         {
-          action: () => {alert("option 2 was clicked")}, 
-          text: "option 2"
-        }
+          name: "trainporn",
+          icon: "someIconSource2"
+        }, 
       ], 
       images : [
 
@@ -62,22 +58,19 @@ class App extends React.Component<{}, IAppState> {
     let mainView: JSX.Element = <div>
       {this.state.errorPageVisible ? 
         <ErrorView message="Enter valid subreddit" />: 
-        <ImageView images={this.state.images} />};
+        <ImageView images={this.state.images}/>};
     </div>
 
     return <div className="App">
-        {/*<Sidebar header="Options" options={this.state.options} /> */}
-        <AppBar>
-          <IconButton onClick={this.toggleDrawer.bind(this)}>
-            <MenuIcon/>
-          </IconButton>
-        </AppBar>
-        <Drawer open={this.state.drawerVisible}>
-          <IconButton onClick={this.toggleDrawer.bind(this)}>
-            <MenuIcon />
-          </IconButton>
-          <Input onChange={this.inputChanged.bind(this)} placeholder="enter subreddit"/>
-        </Drawer>
+        <Topbar 
+          onButtonClick={this.toggleDrawer.bind(this)}
+          input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
+        ></Topbar>
+        <Sidebar 
+          visible={this.state.drawerVisible} 
+          onButtonClick={this.toggleDrawer.bind(this)}
+          listItems={this.state.savedSubreddits} 
+        />         
         {mainView}
       </div>
   }
@@ -86,14 +79,15 @@ class App extends React.Component<{}, IAppState> {
    * @param subreddit name of the subreddit to search. 
    * @param callback the callback for results. 
    */
-  private getImages(subreddit : string, callback : (results : [string, string][]) => any) : any {
+  private getImages(subreddit : string, callback : (results : Image[]) => any) : any {
     
-    let sources : [string, string][] = []; 
+    let sources : Image[] = []; 
 
     return fetch("https://www.reddit.com/r/" + subreddit + "/.json?count=205").then(
       response =>
         response.json().then(listing => {
           sources = this.getSources(listing.data.children);
+          console.log(sources); 
           callback(sources);
         })
     );
@@ -104,12 +98,12 @@ class App extends React.Component<{}, IAppState> {
    * Currently works for children nodes from {kind : "listing"} repsonse 
    * @param {object} children children nodes to get URLs from. 
    */
-  private getSources(children : Array<any>) : [string, string][] {
-    let sources : [string, string][] = []; 
+  private getSources(children : Array<any>) : Image[] {
+    let sources : Image[] = []; 
     for(let child of children) {
       // only posts that are images and where url exists
       if(child.data.post_hint === "image" && typeof child.data.url === "string") {
-        sources.push([child.data.url, child.data.title]); 
+        sources.push({url : child.data.url, title : child.data.title})
       }
     }
     return sources; 
@@ -130,7 +124,7 @@ class App extends React.Component<{}, IAppState> {
 
   private toggleDrawer() {
     this.setState({
-      drawerVisible : !this.state.drawerVisible
+      drawerVisible : !(this.state.drawerVisible)
     })
   }
 

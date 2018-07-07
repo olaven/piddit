@@ -1,40 +1,37 @@
 import * as React from 'react';
-
-// Styles
-import './Sidebar.css';
+// Material UI 
+import Drawer from '@material-ui/core/Drawer/Drawer';
+import IconButton from "@material-ui/core/IconButton/IconButton"; 
+import MenuIcon from "@material-ui/icons/Menu";  
 
 
 interface ISidebarProps {
-    // source, alt 
-    header?: string, 
-            // text,    action
-    options: Array<{
-        text: string,
-        action: () => void
-    }>
+    visible : boolean; 
+    onButtonClick : () => any; 
+    listItems : any[]; 
 }
 
 class Sidebar extends React.Component<ISidebarProps> {
     
     public render() {
-        return <div className="Sidebar">
-            <h2>
-                {this.props.header}
-            </h2>
-            X
-            <ul>
-                {this.renderOptions()}
-            </ul>
-        </div>
+        return <Drawer open={this.props.visible}>
+            <IconButton onClick={this.props.onButtonClick.bind(this)}>
+                <MenuIcon />
+            </IconButton>
+            {this.renderOptions()}
+        </Drawer>
     }
 
     /**
      * Renders the options of this sidebar
      */
     private renderOptions() {
-        return this.props.options.map(option => {
-            return <div onClick={option.action} className="option" key={option.text}>{option.text}</div>
-        })
+        return this.props.listItems.map((savedSubreddit, index) => 
+            <div className="option" key={index}>
+                <img src={savedSubreddit.icon} alt={ ""/*"icon of " + savedSubreddit.name */} />
+                {savedSubreddit.name}
+            </div>
+        )
     }
 }
 
