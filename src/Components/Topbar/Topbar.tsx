@@ -13,16 +13,19 @@ interface ITopbarProps {
     input : InputInfo; 
 }
 
-class Topbar extends React.Component<ITopbarProps> {
+export default class Topbar extends React.Component<ITopbarProps> {
     public render() {
         return <AppBar>
             <IconButton onClick={this.props.onButtonClick}>
                 {/*ADD CSS TO SPACE THESE PARTS OUT*/}
                 <MenuIcon />
-                <Input onChange={this.props.input.onInput} placeholder={this.props.input.placeholder || ""} />
             </IconButton>
+            <Input 
+                onChange={this.props.input.onInput} 
+                placeholder={this.props.input.placeholder || ""} 
+                style={{backgroundColor: "whitesmoke"}}/>
         </AppBar>
     }
 }
 
-export default Topbar;
+

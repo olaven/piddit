@@ -2,7 +2,7 @@ import * as React from 'react';
 // Material UI 
 import Drawer from '@material-ui/core/Drawer/Drawer';
 import IconButton from "@material-ui/core/IconButton/IconButton"; 
-import MenuIcon from "@material-ui/icons/Menu";  
+import CloseIcon from "@material-ui/icons/Close";  
 
 
 interface ISidebarProps {
@@ -16,7 +16,7 @@ class Sidebar extends React.Component<ISidebarProps> {
     public render() {
         return <Drawer open={this.props.visible}>
             <IconButton onClick={this.props.onButtonClick.bind(this)}>
-                <MenuIcon />
+                <CloseIcon />
             </IconButton>
             {this.renderOptions()}
         </Drawer>

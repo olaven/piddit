@@ -10,7 +10,6 @@ import Topbar from './Components/Topbar/Topbar';
 import Image from './Interfaces/Image'; 
 import SavedSubreddit from './Interfaces/SavedSubreddit'
 // Material UI components
- 
 
 
 
