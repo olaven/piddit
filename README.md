@@ -15,5 +15,6 @@ Nothing more, nothing less.
 - [x] Material design menu
 - [ ] Ability to save subreddits
 - [ ] More user friendly "empty pages"
+- [ ] Saving subreddit-shortcuts
 - [ ] Sync images from saved subreddits to database 
 - [ ] Get more than one page from Reddit  
