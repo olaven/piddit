@@ -17,23 +17,18 @@ export default class App extends React.Component<{}, IAppState> {
 
   public componentWillMount() {
     this.setState({
-      savedSubreddits : [
+      savedSubreddits: [
         {
-          name : "bridges", 
-          icon : "someIconSource1"
-        }, 
+          name: "bridges",
+          icon: "bridgeicon"
+        },
         {
           name: "trainporn",
-          icon: "someIconSource2"
-        }, 
+          icon: "trainpornicon"
+        }
       ], 
-      images : [
-
-      ], 
-      errorPageVisible : true,
-      drawerVisible : false, 
-      online : navigator.onLine
-    }); 
+      images : []
+    });
   }
 
   public componentDidMount() {
@@ -57,9 +52,21 @@ export default class App extends React.Component<{}, IAppState> {
           visible={this.state.drawerVisible} 
           onButtonClick={this.toggleDrawer.bind(this)}
           listItems={this.state.savedSubreddits} 
+          onListItemClick={this.clickSavedSubreddit.bind(this)}
         />         
         {mainView}
       </div>
+  }
+
+  private clickSavedSubreddit(event: React.MouseEvent<HTMLInputElement>) {
+    console.log(event.target); 
+    // temp. solution 
+    /**
+     * A lot of the logic in this class could be separated out to a small library. 
+     * Looking up things on reddit should be 
+     *  1. in another file 
+     *  2. not tied to input anymore (to call it from this method as well)
+     */
   }
 
   /**

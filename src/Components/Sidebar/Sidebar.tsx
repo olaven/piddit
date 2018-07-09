@@ -1,33 +1,42 @@
 import * as React from 'react';
+
+// Components 
+import ListItem from '../ListItem/ListItem'
+
 // Material UI 
 import Drawer from '@material-ui/core/Drawer/Drawer';
-import IconButton from "@material-ui/core/IconButton/IconButton"; 
-import CloseIcon from "@material-ui/icons/Close";  
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 // Interfaces 
-import ISidebarProps from "../../Interfaces/Props/ISidebarProps"; 
+import ISidebarProps from '../../Interfaces/Props/ISidebarProps'; 
 
 class Sidebar extends React.Component<ISidebarProps> {
-    
+
     public render() {
         return <Drawer open={this.props.visible}>
-            <IconButton onClick={this.props.onButtonClick.bind(this)}>
+            <IconButton onClick={(this.props.onButtonClick ? this.props.onButtonClick.bind(this) : null)}>
                 <CloseIcon />
             </IconButton>
-            {this.renderOptions()}
+            {this.renderListItems()}
         </Drawer>
     }
 
     /**
      * Renders the options of this sidebar
      */
-    private renderOptions() {
-        return this.props.listItems.map((savedSubreddit, index) => 
-            <div className="option" key={index}>
-                <img src={savedSubreddit.icon} alt={ ""/*"icon of " + savedSubreddit.name */} />
-                {savedSubreddit.name}
-            </div>
-        )
+    private renderListItems() {
+        if(this.props.listItems) {
+            return this.props.listItems.map((listItem, index) =>
+                <ListItem
+                    name={listItem.name}
+                    onClicked={(this.props.onListItemClick ? this.props.onListItemClick.bind(this) : null)}
+                    key={index}
+                >
+                </ListItem>
+            )
+        }
+        return; 
     }
 }
 
