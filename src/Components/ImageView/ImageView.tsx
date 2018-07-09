@@ -3,7 +3,7 @@ import * as React from "react";
 import ImageBlock from '../ImageBlock/ImageBlock';
 import "./ImageView.css";
 // Interfaces 
-import Image from '../../Interfaces/Image'; 
+import IImageViewProps from "../../Interfaces/Props/IImageViewProps"; 
 // Material UI components
 import IconButton from "@material-ui/core/IconButton/IconButton"; 
 import AddIcon from "@material-ui/icons/Add";  
@@ -11,11 +11,6 @@ import AddIcon from "@material-ui/icons/Add";
 
 
 
-
-interface IImageViewProps {
-            // source, alt 
-    images : Image[]
-}
 
 class ImageView extends React.Component<IImageViewProps> {    
     public render() {

@@ -4,12 +4,8 @@ import Drawer from '@material-ui/core/Drawer/Drawer';
 import IconButton from "@material-ui/core/IconButton/IconButton"; 
 import CloseIcon from "@material-ui/icons/Close";  
 
-
-interface ISidebarProps {
-    visible : boolean; 
-    onButtonClick : () => any; 
-    listItems : any[]; 
-}
+// Interfaces 
+import ISidebarProps from "../../Interfaces/Props/ISidebarProps"; 
 
 class Sidebar extends React.Component<ISidebarProps> {
     

@@ -1,9 +1,7 @@
 import * as React from "react";
 
-interface IImageBlockProps {
-    source : string, 
-    alt : string
-}
+// Interfaces 
+import IImageBlockProps from '../../Interfaces/Props/IImageBlockProps'; 
 
 class ImageView extends React.Component<IImageBlockProps> {
     public render() {        

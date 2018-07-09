@@ -1,11 +1,8 @@
 import * as React from "react";
-
+// Interfaces 
+import IErrorViewProps from "../../Interfaces/Props/IErrorViewProps"; 
 import "./ErrorView.css";
 
-interface IErrorViewProps {
-    message : string, 
-    iamgeUrl? : string
-}
 
 class ImageView extends React.Component<IErrorViewProps> {
     public render() {

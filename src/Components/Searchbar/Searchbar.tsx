@@ -2,11 +2,8 @@ import * as React from "react";
 
 import "./Searchbar.css";
 
-interface ISearchbarProps {
-    visible       : boolean, 
-    actionOnInput?: (event: React.ChangeEvent<HTMLInputElement>) => any, 
-    placeholder?  : string 
-}
+// Interfaces 
+import ISearchbarProps from "../../Interfaces/Props/ISearchBarProps"; 
 
 class Searchbar extends React.Component<ISearchbarProps> {
     public render() {

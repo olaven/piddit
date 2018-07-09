@@ -8,21 +8,9 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Topbar from './Components/Topbar/Topbar'; 
 //Interfaces 
 import Image from './Interfaces/Image'; 
-import SavedSubreddit from './Interfaces/SavedSubreddit'
-// Material UI components
+import IAppState from './Interfaces/State/IAppState'; 
 
-
-
-
-interface IAppState {
-  savedSubreddits: SavedSubreddit[]; 
-  images : Image[], 
-  errorPageVisible : boolean, 
-  drawerVisible : boolean; 
-  online : boolean; 
-}
-
-class App extends React.Component<{}, IAppState> {
+export default class App extends React.Component<{}, IAppState> {
   constructor(props : {}) {
     super(props); 
   }
@@ -133,5 +121,3 @@ class App extends React.Component<{}, IAppState> {
     }); 
   }
 }
-
-export default App;

@@ -4,14 +4,11 @@ import AppBar from '@material-ui/core/AppBar/AppBar';
 import Input from "@material-ui/core/Input/Input";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import MenuIcon from "@material-ui/icons/Menu"; 
+
 // Interfaces 
-import InputInfo from '../../Interfaces/InputInfo'
+import ITopbarProps from "../../Interfaces/Props/ITopbarProps"; 
 
 
-interface ITopbarProps {
-    onButtonClick : () => any; 
-    input : InputInfo; 
-}
 
 export default class Topbar extends React.Component<ITopbarProps> {
     public render() {
