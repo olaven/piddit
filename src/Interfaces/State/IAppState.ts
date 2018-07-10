@@ -6,5 +6,4 @@ export default interface IAppState {
     images: Image[],
     errorPageVisible: boolean,
     drawerVisible: boolean;
-    online: boolean;
 }

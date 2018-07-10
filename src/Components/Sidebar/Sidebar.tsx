@@ -16,7 +16,7 @@ class Sidebar extends React.Component<ISidebarProps> {
     public render() {
         return <Drawer open={this.props.visible}>
             <IconButton onClick={(this.props.onButtonClick ? this.props.onButtonClick.bind(this) : null)}>
-                <CloseIcon />
+                <CloseIcon style={{pointerEvents : "none"}}/>
             </IconButton>
             {this.renderListItems()}
         </Drawer>
