@@ -9,6 +9,7 @@ import ImageView from './Components/ImageView/ImageView';
 import ErrorView from './Components/ErrorView/ErrorView'; 
 import Sidebar from './Components/Sidebar/Sidebar'; 
 import Topbar from './Components/Topbar/Topbar'; 
+import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
 //Interfaces 
 import IAppState from './Interfaces/State/IAppState'; 
 
@@ -37,18 +38,19 @@ public componentWillMount() {
 public render() {
     return <div className="App">
         <Topbar 
-        onButtonClick={this.toggleDrawer.bind(this)}
-        input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
+            onButtonClick={this.toggleDrawer.bind(this)}
+            input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
         ></Topbar>
         <Sidebar 
-        visible={this.state.drawerVisible} 
-        onButtonClick={this.toggleDrawer.bind(this)}
-        listItems={this.state.savedSubreddits} 
-        onListItemClick={this.clickSavedSubreddit.bind(this)}
+            visible={this.state.drawerVisible} 
+            onButtonClick={this.toggleDrawer.bind(this)}
+            listItems={this.state.savedSubreddits} 
+            onListItemClick={this.clickSavedSubreddit.bind(this)}
         />         
         {this.state.errorPageVisible ? 
         <ErrorView message="Enter valid subreddit" /> : 
         <ImageView images={this.state.images} />}
+        <CornerAddButton onPress={() => alert("adding")}/> 
     </div>
 }
 
