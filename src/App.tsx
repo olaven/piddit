@@ -13,84 +13,80 @@ import Topbar from './Components/Topbar/Topbar';
 import IAppState from './Interfaces/State/IAppState'; 
 
 export default class App extends React.Component<{}, IAppState> {
-  constructor(props : {}) {
+constructor(props : {}) {
     super(props); 
-  }
+}
 
-  public componentWillMount() {
+public componentWillMount() {
     // synced with indexedDB later 
     this.setState({
-      savedSubreddits: [
+    savedSubreddits: [
         {
-          name: "bridges",
-          icon: "bridgeicon"
+            name: "bridges",
+            icon: "bridgeicon"
         },
         {
-          name: "trainporn",
-          icon: "trainpornicon"
+            name: "trainporn",
+            icon: "trainpornicon"
         }
-      ], 
-      images : []
+    ], 
+    images : []
     });
-  }
+}
 
-  public render() {
-
-    let mainView: JSX.Element = <div>
-      {this.state.errorPageVisible ? 
-        <ErrorView message="Enter valid subreddit" />: 
-        <ImageView images={this.state.images}/>};
-    </div>
-
+public render() {
     return <div className="App">
         <Topbar 
-          onButtonClick={this.toggleDrawer.bind(this)}
-          input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
+        onButtonClick={this.toggleDrawer.bind(this)}
+        input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
         ></Topbar>
         <Sidebar 
-          visible={this.state.drawerVisible} 
-          onButtonClick={this.toggleDrawer.bind(this)}
-          listItems={this.state.savedSubreddits} 
-          onListItemClick={this.clickSavedSubreddit.bind(this)}
+        visible={this.state.drawerVisible} 
+        onButtonClick={this.toggleDrawer.bind(this)}
+        listItems={this.state.savedSubreddits} 
+        onListItemClick={this.clickSavedSubreddit.bind(this)}
         />         
-        {mainView}
-      </div>
-  }
+        {this.state.errorPageVisible ? 
+        <ErrorView message="Enter valid subreddit" /> : 
+        <ImageView images={this.state.images} />}
+    </div>
+}
 
-  private clickSavedSubreddit(event : React.MouseEvent) {
-    this.displayImages("infrastructureporn"); 
-    /**
-     * Temporary -> Display correct based on click
-     */
-  }
+private clickSavedSubreddit(event : React.MouseEvent) {
+    console.log(event.target instanceof HTMLButtonElement); 
+    if(event.target instanceof Element) {
+        const button = event.target as HTMLButtonElement; 
+        this.displayImages(button.innerText); 
+    }
+}
 
-  /**
-   * Takes the subreddit to be searched and renders 
-   * imags accordingly
-   * @param subreddit name of subreddit 
-   * @returns void 
-   */
-  private displayImages(subreddit : string) : void {
+/**
+ * Takes the subreddit to be searched and renders 
+ * imags accordingly
+ * @param subreddit name of subreddit 
+ * @returns void 
+ */
+private displayImages(subreddit : string) : void {
     getImages(subreddit, results => {
-      this.setState({
-        images: results,
-        errorPageVisible: false
-      })
+        this.setState({
+            images: results,
+            errorPageVisible: false
+        });
     }).catch(() => {
-      this.setState({
-        errorPageVisible: true
-      })
+        this.setState({
+            errorPageVisible: true
+        });
     });
-  } 
+} 
 
 
-  private inputChanged(event: React.ChangeEvent<HTMLInputElement>) {
+private inputChanged(event: React.ChangeEvent<HTMLInputElement>) {
     this.displayImages(event.target.value); 
-  }
+}
 
-  private toggleDrawer() {
+private toggleDrawer() {
     this.setState({
-      drawerVisible : !(this.state.drawerVisible)
+    drawerVisible : !(this.state.drawerVisible)
     })
-  }
+}
 }

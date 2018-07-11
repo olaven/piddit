@@ -13,6 +13,7 @@ Nothing more, nothing less.
 ## TODO
 
 - [x] Material design menu
+- [ ] Custom Mateiral MUI-theme
 - [ ] Ability to save subreddits
 - [ ] More user friendly "empty pages"
 - [ ] Saving subreddit-shortcuts

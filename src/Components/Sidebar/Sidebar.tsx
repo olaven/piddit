@@ -16,7 +16,7 @@ class Sidebar extends React.Component<ISidebarProps> {
     public render() {
         return <Drawer open={this.props.visible}>
             <IconButton onClick={(this.props.onButtonClick ? this.props.onButtonClick.bind(this) : null)}>
-                <CloseIcon style={{pointerEvents : "none"}}/>
+                <CloseIcon />
             </IconButton>
             {this.renderListItems()}
         </Drawer>
@@ -30,7 +30,10 @@ class Sidebar extends React.Component<ISidebarProps> {
             return this.props.listItems.map((listItem, index) =>
                 <ListItem
                     name={listItem.name}
-                    onClicked={(this.props.onListItemClick ? this.props.onListItemClick.bind(this) : null)}
+                    onClicked={
+                        (this.props.onListItemClick ? 
+                            this.props.onListItemClick.bind(this) : null)
+                    }
                     key={index}
                 >
                 </ListItem>
