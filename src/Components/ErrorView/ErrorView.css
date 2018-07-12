@@ -4,9 +4,10 @@
     overflow-y: hidden;
     background-color: rgb(245, 227, 231);
     text-align: center;
+    font-size: 5em;
 }
 
-.ErrorView img {
+.ErrorView .ErrorView-Icon {
     margin-top: 30vh; 
     width: 20vw;
 }

@@ -13,9 +13,9 @@ Nothing more, nothing less.
 ## TODO
 
 - [x] Material design menu
-- [ ] Custom Mateiral MUI-theme
+- [x] Custom Mateiral MUI-theme
 - [x] Ability to save subreddits
-- [ ] More user friendly "empty pages"
+- [x] More user friendly "empty pages"
 - [ ] Load images im batches to prevent flickering 
 - [ ] Ability to save subreddits in database
 - [ ] Saving subreddit-shortcuts

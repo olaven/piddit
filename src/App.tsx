@@ -7,6 +7,9 @@ import RedditImageView from "./Components/RedditImageView/RedditImageView";
 import Sidebar from './Components/Sidebar/Sidebar'; 
 import Topbar from './Components/Topbar/Topbar'; 
 import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
+// Material UI 
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import MUITheme from './Libs/MUITheme'; 
 //Interfaces 
 import IAppState from './Interfaces/State/IAppState'; 
 import Subreddit from "./Interfaces/Subreddit";
@@ -35,22 +38,24 @@ public componentWillMount() {
 
 public render() {
     return <div className="App">
-        <Topbar 
-            onButtonClick={this.toggleDrawer.bind(this)}
-            input={{placeholder : "enter subreddit", onInput : this.inputChanged.bind(this)}}
-        ></Topbar>
-        <Sidebar 
-            visible={this.state.drawerVisible} 
-            onButtonClick={this.toggleDrawer.bind(this)}
-            listItems={this.state.savedSubreddits} 
-            onListItemClick={this.clickSavedSubreddit.bind(this)}
-        />         
-        <RedditImageView 
-            subreddit={this.state.currentSubreddit} 
-            onValidSubreddit={() => this.setState({cornerAddButtonVisible: true})}
-            onInvalidSubreddit={() => this.setState({cornerAddButtonVisible: false})} /> 
-        {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={() =>
-            this.saveSubreddit(this.state.currentSubreddit)} /> : null} 
+        <MuiThemeProvider theme={MUITheme}>
+            <Topbar
+                onButtonClick={this.toggleDrawer.bind(this)}
+                input={{ placeholder: "enter subreddit", onInput: this.inputChanged.bind(this) }}
+            ></Topbar>
+            <Sidebar
+                visible={this.state.drawerVisible}
+                onButtonClick={this.toggleDrawer.bind(this)}
+                listItems={this.state.savedSubreddits}
+                onListItemClick={this.clickSavedSubreddit.bind(this)}
+            />
+            <RedditImageView
+                subreddit={this.state.currentSubreddit}
+                onValidSubreddit={() => this.setState({ cornerAddButtonVisible: true })}
+                onInvalidSubreddit={() => this.setState({ cornerAddButtonVisible: false })} />
+            {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={() =>
+                this.saveSubreddit(this.state.currentSubreddit)} /> : null}
+        </MuiThemeProvider>
     </div>
 }
 
