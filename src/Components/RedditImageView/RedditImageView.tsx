@@ -29,7 +29,9 @@ export default class RedditImageView extends React.Component<IRedditImageViewPro
     }
 
     componentDidUpdate() {
-        this.displayImages(this.props.subreddit.name); 
+        if(this.props.subreddit) {
+            this.displayImages(this.props.subreddit.name); 
+        }
     }
 
     /**
@@ -43,11 +45,13 @@ export default class RedditImageView extends React.Component<IRedditImageViewPro
             this.setState({
                 images : results, 
                 imagesAvaiable : true
-            })
+            }); 
+            this.props.onValidSubreddit(); 
         }).catch(() => {
             this.setState({
                 imagesAvaiable : false
-            })
+            }); 
+            this.props.onInvalidSubreddit(); 
         }); 
     } 
 }

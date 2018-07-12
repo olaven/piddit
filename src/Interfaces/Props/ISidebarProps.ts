@@ -1,4 +1,4 @@
-import SavedSubreddit from "../SavedSubreddit";
+import SavedSubreddit from "../Subreddit";
 
 export default interface ISidebarProps {
     visible: boolean;

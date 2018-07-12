@@ -15,7 +15,8 @@ export default class CornerAddButton extends React.Component<ICornerAddButtonPro
             variant="fab" 
             className="CornerAddButton"
             color="secondary"
-            style={styles}> 
+            style={styles}
+            onClick={this.props.onPress}> 
             <AddIcon /> 
         </Button>
     }

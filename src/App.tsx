@@ -9,6 +9,7 @@ import Topbar from './Components/Topbar/Topbar';
 import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
 //Interfaces 
 import IAppState from './Interfaces/State/IAppState'; 
+import Subreddit from "./Interfaces/Subreddit";
 
 export default class App extends React.Component<{}, IAppState> {
 constructor(props : {}) {
@@ -18,16 +19,17 @@ constructor(props : {}) {
 public componentWillMount() {
     // synced with indexedDB later 
     this.setState({
-    savedSubreddits: [
-        {
-            name: "bridges",
-            icon: "bridgeicon"
-        },
-        {
-            name: "trainporn",
-            icon: "trainpornicon"
-        }
-    ]
+        savedSubreddits: [
+            {
+                name: "bridges",
+                icon: "bridgeicon"
+            },
+            {
+                name: "trainporn",
+                icon: "trainpornicon"
+            }
+        ], 
+        cornerAddButtonVisible : false 
     });
 }
 
@@ -43,9 +45,23 @@ public render() {
             listItems={this.state.savedSubreddits} 
             onListItemClick={this.clickSavedSubreddit.bind(this)}
         />         
-        <RedditImageView subreddit={this.state.currentSubreddit}/>
-        <CornerAddButton onPress={() => alert("adding")}/> 
+        <RedditImageView 
+            subreddit={this.state.currentSubreddit} 
+            onValidSubreddit={() => this.setState({cornerAddButtonVisible: true})}
+            onInvalidSubreddit={() => this.setState({cornerAddButtonVisible: false})} /> 
+        {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={() =>
+            this.saveSubreddit(this.state.currentSubreddit)} /> : null} 
     </div>
+}
+
+/**
+ * Adds a saved subreddit 
+ * @param subreddit to be added
+ */
+private saveSubreddit = (subreddit : Subreddit) => {
+    this.setState({
+        savedSubreddits : this.state.savedSubreddits.concat(subreddit)
+    }); 
 }
 
 private clickSavedSubreddit(event : React.MouseEvent) {
@@ -56,9 +72,6 @@ private clickSavedSubreddit(event : React.MouseEvent) {
         })
     }
 }
-
-
-
 
 private inputChanged(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({currentSubreddit : {name : event.target.value}}); 

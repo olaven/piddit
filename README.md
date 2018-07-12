@@ -14,8 +14,10 @@ Nothing more, nothing less.
 
 - [x] Material design menu
 - [ ] Custom Mateiral MUI-theme
-- [ ] Ability to save subreddits
+- [x] Ability to save subreddits
 - [ ] More user friendly "empty pages"
+- [ ] Load images im batches to prevent flickering 
+- [ ] Ability to save subreddits in database
 - [ ] Saving subreddit-shortcuts
 - [ ] Sync images from saved subreddits to database 
 - [ ] Get more than one page from Reddit  

@@ -1,10 +1,8 @@
-import SavedSubreddit from '../SavedSubreddit'; 
-import Image from '../Image'; 
+import SavedSubreddit from '../Subreddit'; 
 
 export default interface IAppState {
     savedSubreddits: SavedSubreddit[];
     currentSubreddit: SavedSubreddit
-    images: Image[],
-    errorPageVisible: boolean,
     drawerVisible: boolean;
+    cornerAddButtonVisible: boolean; 
 }

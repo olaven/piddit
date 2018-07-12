@@ -1,5 +1,7 @@
-import SavedSubreddit from "../SavedSubreddit";
+import Subreddit from "../Subreddit";
 
-export default interface IRedditImtageViewProps {
-    subreddit: SavedSubreddit
+export default interface IRedditImageViewProps {
+    subreddit: Subreddit; 
+    onValidSubreddit : () => any; 
+    onInvalidSubreddit : () => any; 
 }
