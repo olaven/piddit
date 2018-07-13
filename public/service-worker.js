@@ -22,10 +22,18 @@ self.addEventListener('install', function (e) {
 self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim());
 });
+
+
 self.addEventListener('fetch', event => {
+    console.log("This is being cached")
     event.respondWith(
-        caches.match(event.request, { ignoreSearch: true }).then(response => {
-            return response || fetch(event.request);
+        caches.open('piddit').then(cache => {
+            return cache.match(event.request).then(response => {
+                return response || fetch(event.request).then(response => {
+                    cache.put(event.request, response.clone());
+                    return response;
+                });
+            });
         })
     );
 });
