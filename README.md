@@ -17,8 +17,8 @@ Nothing more, nothing less.
 - [x] Ability to save subreddits
 - [x] More user friendly "empty pages"
 - [x] Enable caching
-- [ ] Manage state in a better way. (CerebralJS, Redux etc.)
-- [ ] Load images im batches to prevent flickering 
+- [ ] Manage state with CerebralJS 
+- [ ] Load images in batches to prevent flickering 
 - [ ] Ability to save subreddits in database
 - [ ] Dark mode
 - [ ] Sync images from saved subreddits to database 

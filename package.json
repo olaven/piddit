@@ -11,7 +11,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0",
-    "simple-indexeddb": "^1.0.2"
+    "simple-indexeddb": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts-ts start",

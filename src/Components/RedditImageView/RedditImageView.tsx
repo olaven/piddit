@@ -22,26 +22,27 @@ export default class RedditImageView extends React.Component<IRedditImageViewPro
         } 
     }
 
+
     public render() {
         return this.state.imagesAvaiable ? 
             <ImageView images={this.state.images}/> : 
             <ErrorView message="Invalid Subreddit" /> 
     }
 
-    componentDidUpdate() {
-        if(this.props.subreddit) {
-            this.displayImages(this.props.subreddit.name); 
+    componentWillUpdate(nextProps : IRedditImageViewProps, nextState : IRedditImageViewState) {
+        if(this.props.subreddit.name !== nextProps.subreddit.name) {
+            this.displayImages(nextProps.subreddit.name); 
         }
     }
 
     /**
- * Takes the subreddit to be searched and renders 
- * imags accordingly
- * @param subreddit name of subreddit 
- * @returns void 
- */
+     * Takes the subreddit to be searched and renders 
+     * imags accordingly
+     * @param subreddit name of subreddit 
+     * @returns void 
+     */
     private displayImages(subreddit: string): void {
-        getImages(subreddit, results => {
+        getImages(subreddit, results => { 
             this.setState({
                 images : results, 
                 imagesAvaiable : true

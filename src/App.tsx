@@ -1,12 +1,13 @@
 import * as React from "react";
 import "./App.css";
 
-
 // Components  
 import RedditImageView from "./Components/RedditImageView/RedditImageView";
 import Sidebar from './Components/Sidebar/Sidebar'; 
 import Topbar from './Components/Topbar/Topbar'; 
 import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
+// Libs
+import { createStore, getAll, put } from 'simple-indexeddb';  
 // Material UI 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import MUITheme from './Libs/MUITheme'; 
@@ -15,25 +16,24 @@ import IAppState from './Interfaces/State/IAppState';
 import Subreddit from "./Interfaces/Subreddit";
 
 export default class App extends React.Component<{}, IAppState> {
+    
 constructor(props : {}) {
     super(props); 
+    this.state = {
+        savedSubreddits: [],
+        currentSubreddit: {name : ""}, 
+        drawerVisible: false, 
+        cornerAddButtonVisible: false 
+    }
 }
 
-public componentWillMount() {
-    // synced with indexedDB later 
-    this.setState({
-        savedSubreddits: [
-            {
-                name: "bridges",
-                icon: "bridgeicon"
-            },
-            {
-                name: "trainporn",
-                icon: "trainpornicon"
-            }
-        ], 
-        cornerAddButtonVisible : false 
-    });
+public componentDidMount() {
+    createStore("piddit", "savedSubreddits");  
+    getAll("savedSubreddits", "piddit").then(result => {
+        console.log("fetched: ", result); 
+        let id = "anId" + Math.random();
+        put("piddit", "savedSubreddits", {id : id, data : "some data wow"}, "id", () => {})
+    }); 
 }
 
 public render() {
@@ -78,7 +78,7 @@ private clickSavedSubreddit(event : React.MouseEvent) {
     }
 }
 
-private inputChanged(event: React.ChangeEvent<HTMLInputElement>) {
+private inputChanged(event : React.ChangeEvent<HTMLInputElement>) {
     this.setState({currentSubreddit : {name : event.target.value}}); 
 }
 
