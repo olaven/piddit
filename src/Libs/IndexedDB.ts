@@ -7,7 +7,8 @@ import { createStore, get as getIndexedDB, getAll, put as putIndexedDB } from "s
  * Create stores for parts of app 
  */
 export const create = {
-    savedSubreddits : () => {createStore("piddit", "savedSubreddits")}
+    savedSubreddits : () => createStore("piddit", "savedSubreddits"),
+    images : () => createStore("piddit", "images")
 }
 
 /**
@@ -18,8 +19,12 @@ export const put = {
             data : any, 
             key : string, 
             callback : (result : any) => any
-        ) => 
-        putIndexedDB("piddit", "savedSubreddits", data, key, callback)
+        ) => putIndexedDB("piddit", "savedSubreddits", data, key, callback), 
+    images : (
+        data : any, 
+        key : string, 
+        callback : (result : any) => any
+    ) => putIndexedDB("piddit", "images", data, key, callback)
 }
 
 /**
@@ -27,7 +32,9 @@ export const put = {
  */
 export const get = {
     savedSubreddits : (id : any) => getIndexedDB(id, "savedSubreddits", "piddit"),
+    imagse : (id : any) => getIndexedDB(id, "images", "piddit"),
     all : {
-        savedSubreddits : () => getAll("savedSubreddits", "piddit")
+        savedSubreddits : () => getAll("savedSubreddits", "piddit"), 
+        images : () => getAll("images", "piddit")
     }
 }

@@ -30,6 +30,7 @@ constructor(props : {}) {
 
 public componentDidMount() {
     create.savedSubreddits(); 
+    create.images(); 
     get.all.savedSubreddits().then(result => 
         this.setState({
             savedSubreddits : (result as SavedSubreddit[])
