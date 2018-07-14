@@ -7,13 +7,14 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Topbar from './Components/Topbar/Topbar'; 
 import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
 // Libs
-import { createStore, getAll, put } from 'simple-indexeddb';  
+import { create, get, put } from './Libs/IndexedDB'; 
 // Material UI 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import MUITheme from './Libs/MUITheme'; 
 //Interfaces 
 import IAppState from './Interfaces/State/IAppState'; 
 import Subreddit from "./Interfaces/Subreddit";
+import SavedSubreddit from "./Interfaces/Subreddit";
 
 export default class App extends React.Component<{}, IAppState> {
     
@@ -28,12 +29,11 @@ constructor(props : {}) {
 }
 
 public componentDidMount() {
-    createStore("piddit", "savedSubreddits");  
-    getAll("savedSubreddits", "piddit").then(result => {
-        console.log("fetched: ", result); 
-        let id = "anId" + Math.random();
-        put("piddit", "savedSubreddits", {id : id, data : "some data wow"}, "id", () => {})
-    }); 
+    create.savedSubreddits(); 
+    get.all.savedSubreddits().then(result => 
+        this.setState({
+            savedSubreddits : (result as SavedSubreddit[])
+        }))
 }
 
 public render() {
@@ -53,8 +53,9 @@ public render() {
                 subreddit={this.state.currentSubreddit}
                 onValidSubreddit={() => this.setState({ cornerAddButtonVisible: true })}
                 onInvalidSubreddit={() => this.setState({ cornerAddButtonVisible: false })} />
-            {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={() =>
-                this.saveSubreddit(this.state.currentSubreddit)} /> : null}
+            {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={
+                () => this.saveSubreddit(this.state.currentSubreddit)
+            } /> : null}
         </MuiThemeProvider>
     </div>
 }
@@ -64,6 +65,7 @@ public render() {
  * @param subreddit to be added
  */
 private saveSubreddit = (subreddit : Subreddit) => {
+    put.savedSubreddits(subreddit, "name", result => console.log(result)); 
     this.setState({
         savedSubreddits : this.state.savedSubreddits.concat(subreddit)
     }); 

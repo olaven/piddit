@@ -19,7 +19,7 @@ Nothing more, nothing less.
 - [x] Enable caching
 - [ ] Manage state with CerebralJS 
 - [ ] Load images in batches to prevent flickering 
-- [ ] Ability to save subreddits in database
+- [X] Ability to save subreddits in database
 - [ ] Dark mode
 - [ ] Sync images from saved subreddits to database 
 - [ ] Get more than one page from Reddit  
