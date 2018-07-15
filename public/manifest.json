@@ -8,13 +8,18 @@
       "type": "image/x-icon"
     }, 
     {
-      "src": "icon.png",
+      "src": "icon_small.png",
       "type": "image/png",
       "sizes": "192x192"
+    }, 
+    {
+      "src": "icon_large.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#ef5350",
   "background_color": "#ffffff"
 }

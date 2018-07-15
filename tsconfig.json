@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "fluent": ["./fluent.ts"]
+    }, 
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
