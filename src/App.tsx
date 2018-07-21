@@ -17,77 +17,96 @@ import Subreddit from "./Interfaces/Subreddit";
 import SavedSubreddit from "./Interfaces/Subreddit";
 
 export default class App extends React.Component<{}, IAppState> {
-    
-constructor(props : {}) {
-    super(props); 
-    this.state = {
-        savedSubreddits: [],
-        currentSubreddit: {name : ""}, 
-        drawerVisible: false, 
-        cornerAddButtonVisible: false 
+        
+    constructor(props : {}) {
+        super(props); 
+        this.state = {
+            savedSubreddits: [],
+            currentSubreddit: {name : ""}, 
+            drawerVisible: false, 
+            cornerAddButtonVisible: false 
+        }
     }
-}
 
-public componentDidMount() {
-    create.savedSubreddits(); 
-    create.images(); 
-    get.all.savedSubreddits().then(result => 
+    public componentDidMount() {
+        create.savedSubreddits(); 
+        create.images(); 
+        get.all.savedSubreddits().then(result => 
+            this.setState({
+                savedSubreddits : (result as SavedSubreddit[])
+            })
+        ); 
+    }
+
+    public render() {
+        return <div className="App">
+            <MuiThemeProvider theme={MUITheme}>
+                <Topbar
+                    onButtonClick={this.toggleDrawer.bind(this)}
+                    input={{ placeholder: "enter subreddit", onInput: this.inputChanged.bind(this) }}
+                ></Topbar>
+                <Sidebar
+                    visible={this.state.drawerVisible}
+                    onButtonClick={this.toggleDrawer.bind(this)}
+                    listItems={this.state.savedSubreddits}
+                    onListItemClick={this.clickSavedSubreddit.bind(this)}
+                />
+                <RedditImageView
+                    subreddit={this.state.currentSubreddit}
+                    onValidSubreddit={() => {
+                        // display add button if subreddit is not saved
+                        this.subredditIsSaved(this.state.currentSubreddit, (isSaved => {
+                            console.log(isSaved); 
+                            if(!isSaved) {
+                                this.setState({
+                                    cornerAddButtonVisible: true
+                                });
+                            }
+                        })); 
+                    }}
+                    onInvalidSubreddit={() => this.setState({ cornerAddButtonVisible: false })} />
+                {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={
+                    () => this.saveSubreddit(this.state.currentSubreddit)
+                } /> : null}
+            </MuiThemeProvider>
+        </div>
+    }
+
+    /**
+     * Adds a saved subreddit 
+     * @param subreddit to be added
+     */
+    private saveSubreddit = (subreddit : Subreddit) => {
+        put.savedSubreddits(subreddit, "name", result => console.log(result)); 
         this.setState({
-            savedSubreddits : (result as SavedSubreddit[])
-        }))
-}
+            savedSubreddits : this.state.savedSubreddits.concat(subreddit), 
+            cornerAddButtonVisible : false
+        }); 
+    }
 
-public render() {
-    return <div className="App">
-        <MuiThemeProvider theme={MUITheme}>
-            <Topbar
-                onButtonClick={this.toggleDrawer.bind(this)}
-                input={{ placeholder: "enter subreddit", onInput: this.inputChanged.bind(this) }}
-            ></Topbar>
-            <Sidebar
-                visible={this.state.drawerVisible}
-                onButtonClick={this.toggleDrawer.bind(this)}
-                listItems={this.state.savedSubreddits}
-                onListItemClick={this.clickSavedSubreddit.bind(this)}
-            />
-            <RedditImageView
-                subreddit={this.state.currentSubreddit}
-                onValidSubreddit={() => this.setState({ cornerAddButtonVisible: true })}
-                onInvalidSubreddit={() => this.setState({ cornerAddButtonVisible: false })} />
-            {this.state.cornerAddButtonVisible ? <CornerAddButton onPress={
-                () => this.saveSubreddit(this.state.currentSubreddit)
-            } /> : null}
-        </MuiThemeProvider>
-    </div>
-}
+    private clickSavedSubreddit(event : React.MouseEvent) {
+        if(event.target instanceof Element) {
+            const button = event.target as HTMLButtonElement; 
+            this.setState({
+                currentSubreddit : {name : button.innerText}
+            })
+        }
+    }
 
-/**
- * Adds a saved subreddit 
- * @param subreddit to be added
- */
-private saveSubreddit = (subreddit : Subreddit) => {
-    put.savedSubreddits(subreddit, "name", result => console.log(result)); 
-    this.setState({
-        savedSubreddits : this.state.savedSubreddits.concat(subreddit)
-    }); 
-}
+    private inputChanged(event : React.ChangeEvent<HTMLInputElement>) {
+        this.setState({currentSubreddit : {name : event.target.value}}); 
+    }
 
-private clickSavedSubreddit(event : React.MouseEvent) {
-    if(event.target instanceof Element) {
-        const button = event.target as HTMLButtonElement; 
+    private toggleDrawer() {
         this.setState({
-            currentSubreddit : {name : button.innerText}
+            drawerVisible : !(this.state.drawerVisible)
         })
     }
-}
 
-private inputChanged(event : React.ChangeEvent<HTMLInputElement>) {
-    this.setState({currentSubreddit : {name : event.target.value}}); 
-}
-
-private toggleDrawer() {
-    this.setState({
-        drawerVisible : !(this.state.drawerVisible)
-    })
-}
+    private subredditIsSaved(subreddit : Subreddit, callback : (isSaved : boolean) => any){
+        get.savedSubreddits(subreddit.name).then(response => {
+            if(response === undefined) callback(false);  
+            else return callback(true); 
+        }); 
+    }
 }

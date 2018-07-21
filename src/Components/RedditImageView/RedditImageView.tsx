@@ -26,7 +26,7 @@ export default class RedditImageView extends React.Component<IRedditImageViewPro
     public render() {
         return this.state.imagesAvaiable ? 
             <ImageView images={this.state.images}/> : 
-            <ErrorView message="Invalid Subreddit" /> 
+            <ErrorView message="Enter valid subreddit." /> 
     }
 
     componentWillUpdate(nextProps : IRedditImageViewProps, nextState : IRedditImageViewState) {

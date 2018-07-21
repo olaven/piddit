@@ -32,7 +32,7 @@ export const put = {
  */
 export const get = {
     savedSubreddits : (id : any) => getIndexedDB(id, "savedSubreddits", "piddit"),
-    imagse : (id : any) => getIndexedDB(id, "images", "piddit"),
+    images : (id : any) => getIndexedDB(id, "images", "piddit"),
     all : {
         savedSubreddits : () => getAll("savedSubreddits", "piddit"), 
         images : () => getAll("images", "piddit")
