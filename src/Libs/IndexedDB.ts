@@ -1,7 +1,7 @@
 /**
  * App specific wrapper for 'simple-indexeddb'
  */
-import { createStore, get as getIndexedDB, getAll, put as putIndexedDB } from "simple-indexeddb";
+import { createStore, get as getIndexedDB, getAll, put as putIndexedDB, remove as removeIndexedDB } from "simple-indexeddb";
 
 /**
  * Create stores for parts of app 
@@ -36,5 +36,14 @@ export const get = {
     all : {
         savedSubreddits : () => getAll("savedSubreddits", "piddit"), 
         images : () => getAll("images", "piddit")
+    }
+}
+
+/**
+ * Remove data from store 
+ */
+export const remove = {
+    savedSubreddit : (name : string) => {
+        removeIndexedDB(name, "savedSubreddits", "piddit", () => {}); 
     }
 }

@@ -30,10 +30,8 @@ class Sidebar extends React.Component<ISidebarProps> {
             return this.props.listItems.map((listItem, index) =>
                 <ListItem
                     name={listItem.name}
-                    onClicked={
-                        (this.props.onListItemClick ? 
-                            this.props.onListItemClick.bind(this) : null)
-                    }
+                    onSelected={this.props.onListItemSelected}
+                    onRemoved={this.props.onListItemRemoved}
                     key={index}
                 >
                 </ListItem>

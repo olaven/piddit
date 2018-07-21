@@ -7,7 +7,7 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Topbar from './Components/Topbar/Topbar'; 
 import CornerAddButton from './Components/CornerAddButton/CornerAddButton'; 
 // Libs
-import { create, get, put } from './Libs/IndexedDB'; 
+import { create, get, put, remove } from './Libs/IndexedDB'; 
 // Material UI 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import MUITheme from './Libs/MUITheme'; 
@@ -49,7 +49,8 @@ export default class App extends React.Component<{}, IAppState> {
                     visible={this.state.drawerVisible}
                     onButtonClick={this.toggleDrawer.bind(this)}
                     listItems={this.state.savedSubreddits}
-                    onListItemClick={this.clickSavedSubreddit.bind(this)}
+                    onListItemSelected={this.selectSavedSubreddit.bind(this)}
+                    onListItemRemoved={this.removeSavedSubreddit.bind(this)}
                 />
                 <RedditImageView
                     subreddit={this.state.currentSubreddit}
@@ -84,13 +85,14 @@ export default class App extends React.Component<{}, IAppState> {
         }); 
     }
 
-    private clickSavedSubreddit(event : React.MouseEvent) {
-        if(event.target instanceof Element) {
-            const button = event.target as HTMLButtonElement; 
-            this.setState({
-                currentSubreddit : {name : button.innerText}
-            })
-        }
+    private selectSavedSubreddit(name : string) {
+        this.setState({
+            currentSubreddit: { name : name }
+        }); 
+    }
+
+    private removeSavedSubreddit(name : string) {
+        remove(name);
     }
 
     private inputChanged(event : React.ChangeEvent<HTMLInputElement>) {
