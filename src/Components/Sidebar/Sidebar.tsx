@@ -5,6 +5,7 @@ import ListItem from '../ListItem/ListItem'
 
 // Material UI 
 import Drawer from '@material-ui/core/Drawer/Drawer';
+import Paper from '@material-ui/core/Paper'; 
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -27,7 +28,7 @@ class Sidebar extends React.Component<ISidebarProps> {
      */
     private renderListItems() {
 
-        if(this.props.listItems) {
+        if(this.props.listItems.length > 0) {
             return this.props.listItems.map((listItem, index) =>
                 <ListItem
                     name={listItem.name}
@@ -37,8 +38,11 @@ class Sidebar extends React.Component<ISidebarProps> {
                 >
                 </ListItem>
             )
+        } else {
+            return <Paper>
+                Added subreddits appear here :-)
+            </Paper>
         }
-        return; 
     }
 }
 

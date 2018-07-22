@@ -5,5 +5,5 @@ export default interface ISidebarProps {
     onButtonClick: () => any;
     onListItemSelected: (subreddit : SavedSubreddit) => any; 
     onListItemRemoved: (subreddit: SavedSubreddit) => any; 
-    listItems?: SavedSubreddit[]; 
+    listItems: SavedSubreddit[]; 
 }
