@@ -14,7 +14,8 @@ Nothing more, nothing less.
 
 - [x] Material design menu
 - [x] Custom Mateiral MUI-theme
-- [x] Ability to save subreddits
+- [x] Ability to save subreddits 
+- [x] Ability to remove saved subreddits
 - [x] More user friendly "empty pages"
 - [x] Enable caching
 - [ ] Manage state with CerebralJS 
