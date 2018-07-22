@@ -1,5 +1,7 @@
+import SavedSubreddit from "../Subreddit";
+
 export default interface IListItemProps{
     name : string; 
-    onSelected: () => void; 
-    onRemoved: () => void
+    onSelected: (subreddit : SavedSubreddit) => void;   
+    onRemoved: (subreddit : SavedSubreddit) => void
 }

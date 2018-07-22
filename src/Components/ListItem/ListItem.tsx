@@ -14,8 +14,10 @@ import IListItemProps from '../../Interfaces/Props/IListItemProps';
 
 export default class ListItem extends React.Component<IListItemProps> {
     public render() {
+        const subreddit = { name: this.props.name }
+
         return <ListItemMU>
-            <Button onClick={this.props.onSelected}>
+            <Button onClick={() => this.props.onSelected(subreddit)}>
                 <ListItemIcon>
                     <MoodIcon />
                 </ListItemIcon>
@@ -24,7 +26,7 @@ export default class ListItem extends React.Component<IListItemProps> {
                 </ListItemText>
             </Button>
             <ListItemIcon>
-                <DeleteIcon onClick={this.props.onRemoved}/>
+                <DeleteIcon onClick={() => this.props.onRemoved(subreddit)}/>
             </ListItemIcon>
         </ListItemMU>;
     }

@@ -26,12 +26,13 @@ class Sidebar extends React.Component<ISidebarProps> {
      * Renders the options of this sidebar
      */
     private renderListItems() {
+
         if(this.props.listItems) {
             return this.props.listItems.map((listItem, index) =>
                 <ListItem
                     name={listItem.name}
-                    onSelected={this.props.onListItemSelected}
-                    onRemoved={this.props.onListItemRemoved}
+                    onSelected={() => this.props.onListItemSelected(listItem)}
+                    onRemoved={() => this.props.onListItemRemoved(listItem)}
                     key={index}
                 >
                 </ListItem>

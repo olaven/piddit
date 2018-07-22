@@ -57,7 +57,6 @@ export default class App extends React.Component<{}, IAppState> {
                     onValidSubreddit={() => {
                         // display add button if subreddit is not saved
                         this.subredditIsSaved(this.state.currentSubreddit, (isSaved => {
-                            console.log(isSaved); 
                             if(!isSaved) {
                                 this.setState({
                                     cornerAddButtonVisible: true
@@ -78,21 +77,26 @@ export default class App extends React.Component<{}, IAppState> {
      * @param subreddit to be added
      */
     private saveSubreddit = (subreddit : Subreddit) => {
-        put.savedSubreddits(subreddit, "name", result => console.log(result)); 
+        put.savedSubreddits(subreddit, "name", () => {}); 
         this.setState({
             savedSubreddits : this.state.savedSubreddits.concat(subreddit), 
             cornerAddButtonVisible : false
         }); 
     }
 
-    private selectSavedSubreddit(name : string) {
+    private selectSavedSubreddit(subreddit : SavedSubreddit) {
         this.setState({
-            currentSubreddit: { name : name }
+            currentSubreddit: subreddit
         }); 
     }
 
-    private removeSavedSubreddit(name : string) {
-        remove(name);
+    private removeSavedSubreddit(subreddit : SavedSubreddit) {
+        // remove from db 
+        remove.savedSubreddit(subreddit);
+        // remove from state 
+        this.setState({
+            savedSubreddits : this.state.savedSubreddits.filter(saved => saved.name !== subreddit.name)
+        }); 
     }
 
     private inputChanged(event : React.ChangeEvent<HTMLInputElement>) {
